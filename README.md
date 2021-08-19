@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/mapbox/mapbox-gl-draw.svg?branch=main)](https://travis-ci.org/mapbox/mapbox-gl-draw)
 
 Adds support for drawing and editing features on [mapbox-gl.js](https://www.mapbox.com/mapbox-gl-js/) maps. [See a live example here](https://www.mapbox.com/mapbox-gl-js/example/mapbox-gl-draw/)
-本插件主要实现在mapbox的地图上添加画和编辑地图要素的功能
+
+本插件主要实现在mapbox的地图上添加画和编辑地图要素的功能，[可以查看例子](https://www.mapbox.com/mapbox-gl-js/example/mapbox-gl-draw/)
 
 **Requires [mapbox-gl-js](https://github.com/mapbox/mapbox-gl-js).**
 
@@ -80,16 +81,18 @@ map.on('load', function() {
 https://www.mapbox.com/mapbox-gl-js/example/mapbox-gl-draw/
 
 ### See [API.md](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/API.md) for complete reference.
+### 更详细的用法查看 [API文档](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/API.md).
 
 ### Enhancements and New Interactions
 ### 插件增强和新的交互
 
 For additional functionality [check out our list of custom modes](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md#available-custom-modes).
-需要额外的功能，可以查看我们的自定义模式列表 [check out our list of custom modes](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md#available-custom-modes).。
 
 Mapbox Draw accepts functionality changes after the functionality has been proven out via a [custom mode](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md#creating-modes-for-mapbox-draw). This lets users experiment and validate their mode before entering a review process, hopefully promoting innovation. When you write a custom mode, please open a PR adding it to our [list of custom modes](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md#available-custom-modes).
 
-如果自定义的新模式被验证为可行，本插件将接收新的功能模式。这会让更多的用户验证自定义的新模式，之后新模式将进入评审流程，希望能促进创新。如果你想开发一个自定义的新模式，请添加到我们的自定义模式列表中[list of custom modes](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md#available-custom-modes).
+需要额外的功能，可以 [查看我们的自定义模式列表](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md#available-custom-modes).。
+
+如果自定义的新模式被验证为可行，本插件将接收新的功能模式。这会让更多的用户验证自定义的新模式，之后新模式将进入评审流程，希望能促进创新。如果你想开发一个自定义的新模式，请添加到我们的自定义模式列表中[自定义模式列表](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md#available-custom-modes).
 
 ### Developing and testing
 
