@@ -1,19 +1,21 @@
-# API Reference
+# API Reference（API文档） 
 
 To use Draw
+使用draw功能按如下步骤
 
 ```js
-// Create a Mapbox GL JS map
+// Create a Mapbox GL JS map 创建一个mapbox实例
 var map = new Map(mapOptions);
 
-// Create a Draw control
+// Create a Draw control 创建一个draw实例
 var draw = new MapboxDraw(drawOptions);
 
-// Add the Draw control to your map
+// Add the Draw control to your map 将draw实例添加到mapbox实例
 map.addControl(draw);
 ```
 
 **Draw only works after the Mapbox GL JS map has loaded**, so you must interact with Draw only *after* your map's `load` event:
+当mapbox实例加载完成后，draw才能工作
 
 ```js
 map.on('load', function() {
@@ -21,29 +23,44 @@ map.on('load', function() {
 });
 ```
 
-## Options
+## Options （配置项） 
 
 All of the following options are optional.
+所有的配置项都是可选的
 
 - `keybindings`, boolean (default `true`): Whether or not to enable keyboard interactions for drawing.
+- `keybindings`，boolean (default `true`): 是否支持键盘交互。
 - `touchEnabled`, boolean (default `true`): Whether or not to enable touch interactions for drawing.
+- `touchEnabled`, boolean (default `true`): 是否支持触控交互。
 - `boxSelect`, boolean (default `true`): Whether or not to enable box selection of features with `shift`+`click`+drag. If `false`, `shift`+`click`+drag zooms into an area.
+- `boxSelect`（框选）, boolean (default `true`):是否支持使用`shift`+`click`+鼠标拖拽进行框选，可使用该功能一次框选多个要素。如果设置为false, 则会地图缩放到框选区域。
 - `clickBuffer`, number (default: `2`): Number of pixels around any feature or vertex (in every direction) that will respond to a click.
+- `clickBuffer`（点击缓冲）, number (default: `2`): 定义一次点击，周围几像素内的要素会被选中。
 - `touchBuffer`, number (default: `25`): Number of pixels around any feature of vertex (in every direction) that will respond to a touch.
-- `controls`, Object: Hide or show individual controls. Each property's name is a control, and value is a boolean indicating whether the control is on or off. Available control names are `point`, `line_string`, `polygon`, `trash`, `combine_features` and `uncombine_features`. By default, all controls are on. To change that default, use `displayControlsDefault`.
+- `touchBuffer`（触控缓冲）, number (default: `25`):定义一次触控，周围几像素内的要素会被选中。
+- `controls`, Object: Hide or show individual controls. Each property's name is a control, and value is a boolean indicating whether the control is on or off. Available control names are `point`, `line_string`, `polygon`, `trash`, `combine_features` and `uncombine_features`. By default, all controls are on. To change that default, use `displayControlsDefault`. 
+- `controls`（控制板）, Object: 隐藏或者显示单个控制项。每个属性名是一个控制项，值则是布尔值来标识该控制项是否打开或者关闭。目前可用的控制项名称有点、线、面、清除、合并要素、拆分要素。默认所有控制项都是打开的，如果要修改默认配置，使用`displayControlsDefault`属性。
 - `displayControlsDefault`, boolean (default: `true`): The default value for `controls`. For example, if you would like all controls to be *off* by default, and specify an allowed list with `controls`, use `displayControlsDefault: false`.
+- `displayControlsDefault`（是否显示默认控制项）,boolean (default: `true`): 控制板的默认值。如果只想显示某些单个的控制项，可以把该值设为false，然后在`controls`中自定义控制显示。
 - `styles`, Array\<Object\>: An array of map style objects. By default, Draw provides a map style for you. To learn about overriding styles, see the [Styling Draw](#styling-draw) section below.
+- `styles`, Array\<Object\>: 地图样式的数组。本插件会提供一个默认的地图样式，如果你想重写某些样式，请查看[Styling Draw](#styling-draw).
 - `modes`, Object: over ride the default modes with your own. `MapboxDraw.modes` can be used to see the default values. More information on custom modes [can be found here](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md).
+- `modes`（模式）,  Object: 支持重写你自己的模式，查看`MapboxDraw.modes`可以看到本插件默认的模式。关于自定义模式的更多信息[点击此处](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md).
 - `defaultMode`, String (default: `'simple_select'`): the mode (from `modes`) that user will first land in.
+- `defaultMode`（默认模式）, String (default: `'simple_select'`): 用户第一次进入时的模式。
 - `userProperties`, boolean (default: `false`): properties of a feature will also be available for styling and prefixed with `user_`, e.g., `['==', 'user_custom_label', 'Example']`
+- `userProperties`（用户属性）,boolean (default: `false`): 地图的样式也可以使用要素的属性，使用`user_`作为前缀。
 
-## Modes
+## Modes （模式）
 
 By default MapboxDraw ships with a few modes. These modes aim to cover the basic needed functionally for MapboxDraw to create the core GeoJSON feature types. Along with these, MapboxDraw also supports [custom modes. Click here for more details](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md).
 
 The mode name strings are available as an enum at `Draw.modes`.
 
-### `simple_select`
+本插件默认提供一些模式，这些模式涵盖了创建geojson要素类型的基本功能需求。同时，本插件也支持自定义模式，[点击此处查看详情](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/MODES.md).
+
+
+### `simple_select` （简单选择模式）
 
 `Draw.modes.SIMPLE_SELECT === 'simple_select'`
 
@@ -53,7 +70,9 @@ In this mode, features can have their selected state changed by the user.
 
 Draw is in `simple_select` mode by default, and will automatically transition into `simple_select` mode again every time the user finishes drawing a feature or exits `direct_select` mode.
 
-### `direct_select`
+该模式允许选择，删除，拖拽要素。在该模式下，用户可以改变要素的选择状态。该模式为默认模式，并在用户结束编辑或者创建一个要素后再次进入到该模式。
+
+### `direct_select` （方向选择模式）
 
 `Draw.modes.DIRECT_SELECT === 'direct_select'`
 
@@ -63,23 +82,29 @@ Lets you select, delete, and drag vertices; and drag features.
 
 Draw enters `direct_select` mode when the user clicks a vertex of a selected line or polygon. So `direct_select` mode typically follows `simple_select` mode.
 
-### `draw_line_string`
+允许用户选择，删除，拖拽各个顶点，或者拖拽要素。该模式不能应用于点要素，因为点要素没有顶点。用户点击线、面要素的顶点时会自动进入方向选择模式，所以方向选择模式是跟随者简单选择模式的。
+
+
+### `draw_line_string` （画线模式）
 
 `Draw.modes.DRAW_LINE_STRING === 'draw_line_string'`
 
 Lets you draw a LineString feature.
+允许用户创建线要素。
 
-### `draw_polygon`
+### `draw_polygon` （画面模式）
 
 `Draw.modes.DRAW_POLYGON === 'draw_polygon'`
 
 Lets you draw a Polygon feature.
+允许用户创建面要素。
 
-### `draw_point`
+### `draw_point` （画点模式）
 
 `Draw.modes.DRAW_POINT === 'draw_point'`
 
 Lets you draw a Point feature.
+允许用户创建点要素。
 
 ## API Methods
 
